@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  server_app:
+    image: ubuntu:20.04
+    container_name: server_app
+    command: sleep infinity
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./shared_volume:/shared_volume
+
+networks:
+  default:
+    driver: bridge

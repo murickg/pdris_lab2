@@ -1,0 +1,12 @@
+- name: Deploy server docker container
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Run container
+      command: docker-compose -f ../docker-compose.yml up -d --build
+    - name: Copy app
+      command: docker cp ../app/ server_app:/shared_volume/app/
+    - name: Install Flask
+      command: docker exec server_app bash /shared_volume/app/flask_install.sh
+    - name: Run server
+      command: docker exec server_app bash /shared_volume/app/run_server.sh
